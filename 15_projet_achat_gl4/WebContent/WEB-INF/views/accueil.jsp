@@ -15,7 +15,9 @@
 	href="https://pro.fontawesome.com/releases/v5.8.1/css/all.css">
 <spring:url value="/resources/css/bootstrap.css" var="bootstrapCss" />
 <spring:url value="/resources/js/jquery-3.4.1.js" var="jqueryJs" />
+<spring:url value="/resources/css/monstyle2.css" var="monStyleCss" />
 
+<link href="${monStyleCss}" rel="stylesheet" />
 <link href="${bootstrapCss}" rel="stylesheet" />
 <script src="${jqueryJs}"></script>
 
@@ -26,16 +28,15 @@
 <body>
 	<!-- Entête -->
 
-	<header>
-	<div id=header
-		style="height: 100px; border-bottom: solid; border-bottom-color: grey; border-top: solid; border-top-color: grey; background-color: lightgrey; text-align: center; font-size: 20px; font-variant: small-caps;">
-
+	
+	<div id="entete">
+		
 		<h1>
 			<i>Store Shop </i>
 		</h1>
 	</div>
 
-	</header>
+
 
 	<!-- Bouton permettant d'afficher les produit en focntion de la catégorie -->
 	<div style="margin-top: 50px;"></div>
@@ -47,10 +48,10 @@
 
 			<tr>
 
-				<td>Photo</td>
-				<td>Catégorie</td>
-				<td>Designation</td>
-				<td>Prix</td>
+				<th>Photo</th>
+				<th>Catégorie</th>
+				<th>Designation</th>
+				<th>Prix</th>
 
 			</tr>
 
