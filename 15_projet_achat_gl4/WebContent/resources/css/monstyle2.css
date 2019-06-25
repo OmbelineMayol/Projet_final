@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+#entete {
+	height: 100px; 
+	border-bottom: solid; 
+	border-bottom-color: grey; 
+	border-top: solid; 
+	border-top-color: grey; 
+	background-color: lightgrey; 
+	text-align: center; 
+	font-size: 20px; 
+	font-variant: small-caps;
+	
+}
