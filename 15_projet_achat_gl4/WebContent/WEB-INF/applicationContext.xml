@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- LOCALISATION DES FICHIERS DE PROPRIETES-->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	
+	<context:property-placeholder location="/WEB-INF/db.properties"/>
+
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- DETECTION DES ANNOTATIONS -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+	<!-- Annotations des beans -->
+	<context:component-scan base-package="com.intiformation.projet"/>
+
+	<!-- Annotations des injections automatiques -->
+	<context:annotation-config/>
+	
+	<!-- Annotations des transactions -->
+	<tx:annotation-driven transaction-manager="transactionManagerBean"/>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- CONFIGURATION DE LA DATASOURCE-->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	
+	<bean id="dataSourceBean"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+
+	</bean>
+	
+
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- CONFIGURATION DE LA SESSION FACTORY-->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	
+	<bean id="sessionFactoryBean"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+		<!-- 1. Injection du bean de la dataSource -->
+		<property name="dataSource" ref="dataSourceBean" />
+
+		<!-- 2. Définition de quelques propriété d'hibernate -->
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${db.hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${db.hibernate.showSQL}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${db.hibernate.hbm2ddl.auto}</prop>
+			</props>
+		</property>
+
+		<!-- 3. Déclaration des classes annotées -->
+
+		<property name="annotatedClasses">
+			<list>
+				<value>com.intiformation.projet.modele.Categorie</value>	
+				<value>com.intiformation.projet.modele.Client</value>
+				<value>com.intiformation.projet.modele.Commande</value>
+				<value>com.intiformation.projet.modele.LigneDeCommande</value>
+				<value>com.intiformation.projet.modele.Produit</value>
+				<value>com.intiformation.projet.modele.Role</value>
+				<value>com.intiformation.projet.modele.User</value>		
+			</list>
+		</property>
+
+	</bean>
+
+	
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- CONFIGURATION DE LA GESTION DES TRANSACTIONS-->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	
+	
+	<bean id="transactionManagerBean"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+
+		<!-- Injection du Bean de la sessionFactory dans le manager -->
+		<property name="sessionFactory" ref="sessionFactoryBean"></property>
+	</bean>
+
+
+
+
+
+</beans>
