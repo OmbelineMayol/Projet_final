@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-test
+
+<h1>Bienvenue sur Github !!! </h1>
 
 <a href="produitControllerBean.htm">vers la page d'accueil</a>
 </body>
