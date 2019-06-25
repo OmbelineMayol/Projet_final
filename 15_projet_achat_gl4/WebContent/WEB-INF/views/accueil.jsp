@@ -54,7 +54,9 @@
 	<!-- Barre de menu -->
 	<div class="container-fluid" style="display: flex; margin-top: 20px;">
 
-		<button type="submit" class="btn btn-success">Rechercher</button>
+		<div>
+		<a>Se connecter en tant qu'administrateur</a>
+		</div>
 
 	</div>
 

@@ -12,6 +12,7 @@ import com.intiformation.projet.modele.Produit;
 import com.intiformation.projet.service.IProduitService;
 
 @Controller("produitControllerBean")
+@RequestMapping("produitControllerBean")
 public class ProduitController {
 	
 
