@@ -13,14 +13,21 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://pro.fontawesome.com/releases/v5.8.1/css/all.css">
+
 <spring:url value="/resources/css/bootstrap.css" var="bootstrapCss" />
 <spring:url value="/resources/js/jquery-3.4.1.js" var="jqueryJs" />
-<spring:url value="/resources/css/monstyle2.css" var="monStyleCss" />
+<spring:url value="/resources/css/monstyle2.css" var="monstyle2" />
+<spring:url value="/resources/js/npm.js" var="npmJs" />
+<spring:url value="/resources/js/bootstrap.min.js" var="bmJs" />
+<spring:url value="/resources/js/bootstrap.js" var="bJs" />
 
-<link href="${monStyleCss}" rel="stylesheet" />
-<link href="${bootstrapCss}" rel="stylesheet" />
+
 <script src="${jqueryJs}"></script>
-
+<script src="${npmJs}"></script>
+<script src="${bmJs}"></script>
+<script src="${bJs}"></script>
+<link href="${monstyle2}" rel="stylesheet" />
+<link href="${bootstrapCss}" rel="stylesheet" />
 
 <title>accueil.jsp</title>
 
@@ -28,22 +35,43 @@
 <body>
 	<!-- Entête -->
 
-	
-	<div id="entete">
-		
+
+	<div  class="container-fluid"
+		style="height: 100px; border-bottom: solid; 
+		border-bottom-color: grey; border-top: solid; 
+		border-top-color: grey; background-color: lightgrey; 
+		text-align: center; 
+		font-size: 20px; 
+		font-variant: small-caps;
+		margin-top: 10px;">
+
+
 		<h1>
 			<i>Store Shop </i>
 		</h1>
 	</div>
 
+	<!-- Barre de menu -->
+	<div class="container-fluid" style="display: flex; margin-top: 20px;">
+
+		<button type="submit" class="btn btn-success">Rechercher</button>
+
+	</div>
+
 
 
 	<!-- Bouton permettant d'afficher les produit en focntion de la catégorie -->
-	<div style="margin-top: 50px;"></div>
-
+	<div class="container" style="margin-top: 30px; display: flex">
+		<form>
+			<select name="Categorie" >
+			<option>divers</option>
+			</select>
+			<input type=submit name="bouton" value="rechercher">
+		</form>
+	</div>
 	<!-- Table qui affiche l'ensemble des produits présents dans la table de données-->
 
-	<div style="margin-left: 100px; margin-right: 100px;">
+	<div class="container">
 		<table class="table table-striped">
 
 			<tr>
@@ -70,10 +98,10 @@
 		</table>
 	</div>
 
-<!-- 	<script -->
-<!-- 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" -->
-<!-- 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" -->
-<!-- 	crossorigin="anonymous"></script> -->
+	<!-- 		<script -->
+	<!-- 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" -->
+	<!-- 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" -->
+	<!-- 		crossorigin="anonymous"></script> -->
 
 
 </body>

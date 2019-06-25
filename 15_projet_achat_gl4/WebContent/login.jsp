@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <title>login.jsp (formulaire de connexion personalisée)</title>
 </head>
 <body>
