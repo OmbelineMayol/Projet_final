@@ -17,8 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.intiformation.projet.modele.Client;
 import com.intiformation.projet.service.IClientService;
 
-@Controller("clientControllerBean")
-@RequestMapping("clientControllerBean")
+@Controller("clientController")
 public class ClientController {
 	
 	/**
@@ -42,7 +41,7 @@ public class ClientController {
 	 * @param modele
 	 * @return 
 	 */
-	@RequestMapping(name="/getAllClient", method=RequestMethod.GET)
+	@RequestMapping(name="/client/getAllClient", method=RequestMethod.GET)
 	public String listeClientsBdd (ModelMap modele) {
 		
 		//Définir les données à renvoyer vers la vue (liste des clients de la bdd)
@@ -63,9 +62,9 @@ public class ClientController {
 	 * 
 	 * @return 
 	 */
-	@RequestMapping(value= {"/clientControllerBean/delete/{clientID}"},						
+	@RequestMapping(value= {"/client/delete/{clientId}"},						
 							method = RequestMethod.GET)
-	public String supprimerClientBdd(@PathVariable("clientID") int pIdClient,ModelMap model) {
+	public String supprimerClientBdd(@PathVariable("clientId") int pIdClient,ModelMap model) {
 		
 		//1.suppression du client de la bdd
 		
@@ -75,10 +74,10 @@ public class ClientController {
 		
 		List<Client> newListClientsBdd = clientService.findAllClientsService();
 		
-		model.addAttribute("clients_attribute",newListClientsBdd);
+		model.addAttribute("allClients",newListClientsBdd);
 		
 		// redirection avec le prefix 'redirect'
-		return "redirect:/clientControllerBean/getAllClient";
+		return "redirect:/client/getAllClient";
 	}
 	
 	/**
@@ -92,7 +91,7 @@ public class ClientController {
 	 *  1/	Affiche le formulaire d'ajout d'un client dans la bdd <br/>
 	 */
 	
-	@RequestMapping(value="/clientControllerBean/ajouterClient",method=RequestMethod.GET)
+	@RequestMapping(value="/client/form/ajouter",method=RequestMethod.GET)
 	public ModelAndView setUpFormulaire () {
 		
 		//1. Données à retourner vers la vue
@@ -114,7 +113,7 @@ public class ClientController {
 	 * 2/ Ajout d'un client dans la bdd à la soumission du formulaire
 	 * @return
 	 */
-	@RequestMapping(value="/clientControllerBean/ajouterClient",method=RequestMethod.POST)
+	@RequestMapping(value="/client/ajouter",method=RequestMethod.POST)
 	public String addClientBdd(@ModelAttribute("clientCommand") Client pClient,ModelMap model) {
 		
 		// 1. ajout du client à la bdd
@@ -122,10 +121,10 @@ public class ClientController {
 		
 		//2. Affichage de la nouvelle liste des clients de la bdd (recup + envoi)
 		
-		model.addAttribute("clients_attribute",clientService.findAllClientsService());
+		model.addAttribute("allClients",clientService.findAllClientsService());
 		
 		
-		return "redirect:/getAllClient";
+		return "redirect:/client/getAllClient";
 	}
 	
 	/**
@@ -133,7 +132,7 @@ public class ClientController {
 	 * en GET suit au click sur le lien Modifier de clients.jsp <br/>
 	 * @return
 	 */
-	@RequestMapping(value="/clientControllerBean/modifierClient", method=RequestMethod.GET)
+	@RequestMapping(value="/client/form/modifier*", method=RequestMethod.GET)
 	public ModelAndView setUpFormulaireUpdate(@RequestParam("clientId") int pIdClient) {
 		
 		// recup de l'employé a MAJ dans la bdd 
@@ -143,7 +142,7 @@ public class ClientController {
 		/**
 		 * >> modifierClient = nom logique de la vue
 		 */
-		return new ModelAndView("modifierClient", "clientUpCommand", clientMAJ);
+		return new ModelAndView("modifierClient","clientUpCommand",clientMAJ);
 		
 	}
 	
@@ -153,18 +152,17 @@ public class ClientController {
 	 * a la soumission du formulaire de modifierClient.jsp
 	 * @return
 	 */
-	@RequestMapping(value="/clientControllerBean/modifierClient", method=RequestMethod.POST)
-	public String updateClientBdd(@ModelAttribute("clientUpCommand") Client pClient, 
-			                    ModelMap modele) {
+	@RequestMapping(value="/client/modifier", method=RequestMethod.POST)
+	public String updateClientBdd(@ModelAttribute("clientUpCommand") Client pClient, ModelMap modele) {
 		
 		// 1. modif du client dans la bdd 
 		clientService.modifierClientService(pClient);
 		
 		// 2. recup de la nouvelle liste des clients dans la bdd + renvoi de la liste vers la vue 
-		modele.addAttribute("clients_attribute", clientService.findAllClientsService());
+		modele.addAttribute("allClients", clientService.findAllClientsService());
 		
 		// 3. redirection vers l'url '/getAllClient' => clients.jsp
-		return "redirect:/getAllClient"; 
+		return "redirect:/client/getAllClient"; 
 		
 	}
 	

@@ -24,6 +24,8 @@
 	<a href="produitControllerBean.htm">vers la page d'accueil</a>
 	<br/><br/>
 		<a href="clientControllerBean.htm">Vers la page AccueilAdmin</a>
+		
+		<% response.sendRedirect("welcome"); %>
 	
 </body>
 </html>

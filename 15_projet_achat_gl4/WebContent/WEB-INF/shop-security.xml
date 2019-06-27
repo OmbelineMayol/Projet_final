@@ -12,22 +12,13 @@
 	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
 	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/accueilAdm*"
+			access="hasRole('ROLE_ADMIN')" />
 
-		<security:intercept-url
-			pattern="/ajouterProduit"
-			access="hasAnyRole('ROLE_AdminCategories, ROLE_AdminProduits, ROLE_ANONYMOUS')" />
-		
-		<!-- Personalisation du formulaire de connexion -->
-		<security:form-login login-page="/login.jsp"
-		 				 default-target-url="/messageList"
-		 				 authentication-failure-url="/login.jsp?error=true"
-		 				 login-processing-url="/login"
-		 				 username-parameter="username"
-		 				 password-parameter="password"/>
-		 				 
-		<!-- Desactivation de la securité de hacking -->
-		<security:csrf disabled="true" />
-
+		<security:logout logout-success-url="/welcome" 
+						 logout-url="/logout"
+						 invalidate-session="true"/>
+		<security:csrf disabled="true"/>
 	</security:http>
 
 	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -37,14 +28,13 @@
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:jdbc-user-service
-				data-source-ref="dataSourceBean" 
-				users-by-username-query="SELECT actived, password, username FROM users WHERE username=?" 
-				authorities-by-username-query="SELECT u.username, r.rolename FROM users u, roles r
-											   WHERE u.id_user = r.user_id AND u.username="/>
-
+				data-source-ref="dataSourceBean"
+				users-by-username-query="SELECT username, password, actived FROM users WHERE username = ?"
+				authorities-by-username-query="SELECT u.username, r.roleName
+								   								  FROM users u, roles r
+								   								  WHERE u.id_user = r.user_id
+								   								  AND u.username = ?" />
 		</security:authentication-provider>
-
-
 	</security:authentication-manager>
 
 </beans>

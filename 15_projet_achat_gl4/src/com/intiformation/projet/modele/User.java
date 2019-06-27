@@ -27,7 +27,7 @@ public class User {
 	private String password;
 	
 	@Column(name="actived")
-	private boolean actived;
+	private int actived;
 
 
 	/* --------------------- CONSTRUCTEURS ---------------------- */
@@ -37,7 +37,7 @@ public class User {
 	}
 
 
-	public User(String username, String password, boolean actived) {
+	public User(String username, String password, int actived) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -77,12 +77,12 @@ public class User {
 	}
 
 
-	public boolean isActived() {
+	public int isActived() {
 		return actived;
 	}
 
 
-	public void setActived(boolean actived) {
+	public void setActived(int actived) {
 		this.actived = actived;
 	}
 	

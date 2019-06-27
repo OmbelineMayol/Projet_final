@@ -45,33 +45,46 @@
 	float: left;
 }
 
-.btn-group .button:not (:last-child ) {
-	border-right: none; /* Prevent double borders */
-}
+.btn-group
+ 
+.button
+:not
+ 
+(
+:last-child
+ 
+)
+{
+border-right
+:
+ 
+none
+; /* Prevent double borders */
 
+
+}
 .btn-group .button:hover {
 	background-color: #3E688E;
 }
 </style>
 </head>
-
 <body>
-<!-- ENTETE -->
-<div class="container-fluid"
+	<!-- Entête -->
+	<div class="container-fluid"
 		style="height: 100px; border-bottom: solid; border-bottom-color: grey; border-top: solid; border-top-color: grey; background-color: lightgrey; text-align: center; font-size: 20px; font-variant: small-caps; margin-top: 10px; margin-bottom: 20px;">
 		<h1>
 			<i>Store Shop - administrateur</i>
 		</h1>
 
 	</div>
-	
-	<!-- BOUTON DE NAVIGATION -->
+
 	<div class="container" style="display: flex; margin-bottom: 40px;">
+
 		<div class="btn-group">
 			<!-- Bouton permettant d'afficher les produit en focntion de la catégorie -->
-			<form action="<c:url value="/accueilAdm"/>"
+			<form action="<c:url value="/client/getAllClient"/>"
 				style="margin-right: 5px;">
-				<button type="submit" class="button">Gestion des produit</button>
+				<button type="submit" class="button">Gestion des clients</button>
 			</form>
 			<form action="<c:url value="/client/getAllClient"/>">
 				<button type="submit" class="button">Gestion des catégories</button>
@@ -79,62 +92,54 @@
 			<form action="<c:url value="/logout"/>">
 				<button type="submit" class="button">Deconnection</button>
 			</form>
+
 		</div>
+
+
 	</div>
 
-	<!-- Tableau des clients -->
+	<div class="container">
+		<h2 style="margin-bottom: 15px;">Liste des produits</h2>
 
-<div class="container">
-		<h2 style="margin-bottom: 25px;">Liste des clients</h2>
-
-<div style="margin-bottom: 15px;">
-<form action="<c:url value="/client/form/ajouter"/>">
-<button type="submit" >Ajouter un client</button>
-</form>
-</div>
 		<!-- Table qui affiche l'ensemble des produits présents dans la table de données-->
 		<table class="table table-striped">
 
 			<tr>
-				<th>ID</th>
-				<th>Nom</th>
-				<th>Adresse</th>
-				<th>Email</th>
-				<th>Telephone</th>
-				
-				<th>Modification</th>
-				<th>Suppression</th>
+				<th>Photo</th>
+				<th>Catégorie</th>
+				<th>Designation</th>
+				<th>Prix</th>
+				<th>Modifier</th>
+				<th>Supprimer</th>
 			</tr>
 
-			<c:forEach items="${allClients}" var="cl">
+			<c:forEach items="${allProduit}" var="pdt">
+				<tr>
+					<td><img src="${pdt.photo}"
+						style="width: 104px; height: 142px;"></td>
+					<td>${pdt.categorie.nomCategorie}</td>
+					<td>${pdt.designation}</td>
+					<td>${pdt.prix}</td>
 
-				<tr >
-					<td>${cl.idClient}</td>
-					<td>${cl.nomClient}</td>
-					<td>${cl.adresse}</td>
-					<td>${cl.email}</td>
-					<td>${cl.telephone}</td>
 
-					
-
-<!-- 					colonne pour modifier le client -->
+					<!-- 					colonne pour modifier le client -->
 					<td><a
-						href="${pageContext.request.contextPath}/client/form//modifier?clientId=${cl.idClient}">Modifier</a>
+						href="${pageContext.request.contextPath}/produit/update-form?produitId=${pdt.idProduit}">Modifier</a>
 					</td>
-					<!-- colonne pour supprimer le client -->
 					<td><a
-						href="${pageContext.request.contextPath}/client/delete/${cl.idClient}">Supprimer</a>
+						href="${pageContext.request.contextPath}/produit/supprimer/${pdt.idProduit}">Supprimer</a>
 					</td>
-
 				</tr>
-
 			</c:forEach>
 
 		</table>
 	</div>
 
+	<!-- 		<script -->
+	<!-- 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" -->
+	<!-- 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" -->
+	<!-- 		crossorigin="anonymous"></script> -->
 
 
-	
 </body>
 </html>

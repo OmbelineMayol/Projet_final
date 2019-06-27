@@ -36,14 +36,8 @@
 	<!-- Entête -->
 
 
-	<div  class="container-fluid"
-		style="height: 100px; border-bottom: solid; 
-		border-bottom-color: grey; border-top: solid; 
-		border-top-color: grey; background-color: lightgrey; 
-		text-align: center; 
-		font-size: 20px; 
-		font-variant: small-caps;
-		margin-top: 10px;">
+	<div class="container-fluid"
+		style="height: 100px; border-bottom: solid; border-bottom-color: grey; border-top: solid; border-top-color: grey; background-color: lightgrey; text-align: center; font-size: 20px; font-variant: small-caps; margin-top: 10px;">
 
 
 		<h1>
@@ -55,7 +49,8 @@
 	<div class="container-fluid" style="display: flex; margin-top: 20px;">
 
 		<div>
-		<a>Se connecter en tant qu'administrateur</a>
+			<a href='<c:url value="/accueilAdm"/>'>Se connecter en
+				tant qu'administrateur</a>
 		</div>
 
 	</div>
@@ -63,17 +58,27 @@
 
 
 	<!-- Bouton permettant d'afficher les produit en focntion de la catégorie -->
-	<div class="container" style="margin-top: 30px; display: flex">
-		<form>
-			<select name="Categorie" >
-			<option>divers</option>
-			</select>
-			<input type=submit name="bouton" value="rechercher">
-		</form>
-	</div>
+<!-- 	<div> -->
+<!-- 		<form action="/action_page.php"> -->
+<!-- 			<input list="browsers" name="browser" > -->
+<!-- 			<datalist id="browsers"> -->
+<!-- 			<option value="Internet Explorer"> -->
+				
+<!-- 			<option value="Firefox"> -->
+    
+<!-- 			<option value="Chrome"> -->
+    
+<!-- 			<option value="Opera"> -->
+    
+<!-- 			<option value="Safari"> -->
+<!--   </datalist> -->
+<!--   <input type="submit"> -->
+<!-- </form> -->
+<!-- </div> -->
+
 	<!-- Table qui affiche l'ensemble des produits présents dans la table de données-->
 
-	<div class="container">
+				<div class="container">
 		<table class="table table-striped">
 
 			<tr>
@@ -88,7 +93,9 @@
 
 			<c:forEach items="${allProduit}" var="pdt">
 				<tr>
-					<td>${pdt.photo}</td>
+					<td>
+					<img src="${pdt.photo}" style="width:104px;height:142px;">
+					</td>
 					<td>${pdt.categorie.nomCategorie}</td>
 					<td>${pdt.designation}</td>
 					<td>${pdt.prix}</td>

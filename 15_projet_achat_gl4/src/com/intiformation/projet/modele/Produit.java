@@ -13,41 +13,41 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
-
-
-@Entity(name="produit")
-@Table(name="produits")
+@Entity(name = "produit")
+@Table(name = "produits")
 public class Produit {
 
 	/* ---------------- DECLARATION DES CHAMPS ------------------ */
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_produit")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_produit")
 	private int idProduit;
-	
-	@Column(name="designation")
+
+	@Column(name = "designation")
 	private String designation;
-	
-	@Column(name="description")
+
+	@Column(name = "description")
 	private String description;
-	
-	@Column(name="prix")
+
+	@Column(name = "prix")
 	private double prix;
-	
-	@Column(name="quantite")
+
+	@Column(name = "quantite")
 	private String quantite;
-	
-	@Column(name="photo")
+
+	@Column(name = "photo")
 	private String photo;
 
+	@Column(name = "selectionne")
+	private int selectionne;
+
 	/* ---------------------- ASSOCIATION ----------------------- */
-	@OneToMany(mappedBy="produit")
+	@OneToMany(mappedBy = "produit")
 	private List<LigneDeCommande> listeLigneDeCommande;
-	
+
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="categorie_id", referencedColumnName="id_categorie")
+	@JoinColumn(name = "categorie_id", referencedColumnName = "id_categorie")
 	private Categorie categorie;
 
 	/* --------------------- CONSTRUCTEURS ---------------------- */
@@ -56,15 +56,15 @@ public class Produit {
 		super();
 	}
 
-	public Produit(String designation, String description, double prix, String quantite,
-			String photo) {
+	public Produit(String designation, String description, double prix, String quantite, String photo,
+			int selectionne) {
 		super();
 		this.designation = designation;
 		this.description = description;
 		this.prix = prix;
 		this.quantite = quantite;
-		
 		this.photo = photo;
+		this.selectionne = selectionne;
 	}
 
 	/* ------------------ GETTERS et SETTERS -------------------- */
@@ -109,8 +109,6 @@ public class Produit {
 		this.quantite = quantite;
 	}
 
-	
-
 	public String getPhoto() {
 		return photo;
 	}
@@ -135,5 +133,12 @@ public class Produit {
 		this.categorie = categorie;
 	}
 
-	
+	public int isSelectionne() {
+		return selectionne;
+	}
+
+	public void setSelectionne(int selectionne) {
+		this.selectionne = selectionne;
+	}
+
 }
