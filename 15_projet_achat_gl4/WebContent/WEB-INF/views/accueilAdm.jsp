@@ -86,7 +86,7 @@ none
 				style="margin-right: 5px;">
 				<button type="submit" class="button">Gestion des clients</button>
 			</form>
-			<form action="<c:url value="/client/getAllClient"/>">
+			<form action="<c:url value="/catergorie/getAllCategorie"/>">
 				<button type="submit" class="button">Gestion des catégories</button>
 			</form>
 			<form action="<c:url value="/logout"/>">
@@ -124,10 +124,10 @@ none
 
 					<!-- 					colonne pour modifier le client -->
 					<td><a
-						href="${pageContext.request.contextPath}/produit/update-form?produitId=${pdt.idProduit}">Modifier</a>
+						href="/produit/update-form?produitId=${pdt.idProduit}">Modifier</a>
 					</td>
 					<td><a
-						href="${pageContext.request.contextPath}/produit/supprimer/${pdt.idProduit}">Supprimer</a>
+						href="/produit/supprimer/${pdt.idProduit}">Supprimer</a>
 					</td>
 				</tr>
 			</c:forEach>

@@ -41,7 +41,7 @@ public class ClientController {
 	 * @param modele
 	 * @return 
 	 */
-	@RequestMapping(name="/client/getAllClient", method=RequestMethod.GET)
+	@RequestMapping(value="/client/getAllClient", method=RequestMethod.GET)
 	public String listeClientsBdd (ModelMap modele) {
 		
 		//Définir les données à renvoyer vers la vue (liste des clients de la bdd)
