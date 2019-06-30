@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.intiformation.projet.modele.Categorie;
 import com.intiformation.projet.modele.Produit;
+import com.intiformation.projet.service.ICategorieService;
 import com.intiformation.projet.service.IProduitService;
 
 @Controller("produiController")
 public class ProduitController {
-	
+
 	/* -------------- DECLARATION DES ATTRIBUTS ----------------- */
-	
 
 	/* ---------- ASSOCIATION AVEC LA COUCHE SERVICE ------------ */
 	@Autowired
@@ -29,67 +30,110 @@ public class ProduitController {
 	public void setProduitService(IProduitService produitService) {
 		this.produitService = produitService;
 	}
-	
+
+	// 2. de Catégorie
+	@Autowired
+	ICategorieService categorieService;
+
+	public void setCategorieService(ICategorieService categorieService) {
+		this.categorieService = categorieService;
+	}
+
 	/* --------------- DECLARATION DES METHODES ----------------- */
 
 	/**
 	 * Methode permettant d'envoyer sur le formulaire pour modifier un produit
+	 * 
 	 * @param pIdProduit
 	 * @param modele
 	 * @return
 	 */
-	@RequestMapping(value="/produit/form/udpate", method=RequestMethod.GET)
+	@RequestMapping(value = "/produit/form/udpate*", method = RequestMethod.GET)
 	public ModelAndView updateProduitForm(@RequestParam("produitId") int pIdProduit, ModelMap modele) {
-		
-		//Recuperation du produit
+
+		// Recuperation du produit
 		Produit produit = produitService.getProduitByIdService(pIdProduit);
-		
-		//Insersion dans le modele
+		List<String> listNomCategorie = categorieService.getNomCategorie();
+		// Insersion dans le modele
 		modele.addAttribute("produitUpdate", produit);
-		
-		// definition de la vue 
+		modele.addAttribute("nomsCategories",listNomCategorie);
+		// definition de la vue
 		String vue = "updateProduitForm";
-		
+
 		// Creation du model and view
 		ModelAndView mav = new ModelAndView(vue, modele);
-		
+
 		return mav;
 	}
-	
+
 	/**
 	 * Permet la modification d'un produit
 	 */
-	@RequestMapping(value="/produit/update", method=RequestMethod.POST)
+	@RequestMapping(value = "/produit/update", method = RequestMethod.POST)
 	public String updateProduit(@ModelAttribute("produitUpdate") Produit pProduit, ModelMap modele) {
-		
+
+		// Recuperation de la categorie
+		String nomCatg = pProduit.getCategorie().getNomCategorie();
+		Categorie cat = categorieService.getCategorieByName(nomCatg);
+		pProduit.setCategorie(cat);
 		// Modification du produit dans la bdd
 		produitService.updateProduitService(pProduit);
-		
+
 		// récupération de la nouvelle liste de produit
 		modele.addAttribute("allProduit", produitService.getAllProduitService());
-		
+
 		// redirection vers la page accueil ADM
-		
+
 		return "redirect:/accueilAdm";
-		
+
 	}
-	
+
 	/**
 	 * Permet la suppression d'un produit
 	 */
-	@RequestMapping(value="/produit/supprimer/{produitId}", method=RequestMethod.GET)
+	@RequestMapping(value = "/produit/supprimer/{produitId}", method = RequestMethod.GET)
 	public String deleteProduit(@PathVariable("produitId") int pIdProduit, ModelMap modele) {
-		
+
 		// Suppression du produit
 		produitService.deleteProduitService(pIdProduit);
-		
+
 		// MAJ de la liste des produit
 		List<Produit> listOut = produitService.getAllProduitService();
 		modele.addAttribute("allProduit", listOut);
-		
+
 		// Renvoi sur la page d'accueil ADM
-		
+
 		return "redirect:/accueilAdm";
+	}
+
+	/**
+	 * Permet de rechercher les produits en fonction de la categorie
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/produit/byCategorie", method = RequestMethod.POST)
+	public String rechercherPdtParCat(@ModelAttribute("categorie") Categorie categorie, ModelMap modele) {
+//		Categorie cat = (Categorie) modele.get("categorie");
+//		String nom = cat.getNomCategorie();
+//		String test = "srth";
+		if (categorie.getNomCategorie() == "srth") {
+			List<Produit> listOut = produitService.getAllProduitService();
+			modele.addAttribute("allProduit", listOut);
+
+		} else {
+
+			List<Produit> listOut = produitService.getProduitByCategorieService(categorie);
+			modele.addAttribute("allProduit", listOut);
+
+		}
+
+		Categorie categorie2 = new Categorie();
+		modele.addAttribute("categorie", categorie2);
+
+		List<String> listNomCategorie = categorieService.getNomCategorie();
+		modele.addAttribute("nomsCategories", listNomCategorie);
+
+		return "accueil";
 	}
 
 }

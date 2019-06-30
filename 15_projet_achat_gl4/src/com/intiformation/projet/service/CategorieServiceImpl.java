@@ -56,5 +56,9 @@ public class CategorieServiceImpl implements ICategorieService{
 	public List<String> getNomCategorie() {
 		return categorieDao.getNomCategorie();
 	}
+	
+	public Categorie getCategorieByName(String nomCategorie) {
+		return categorieDao.getCategorieByName(nomCategorie);
+	}
 
 }

@@ -8,7 +8,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.intiformation.projet.modele.Categorie;
+import com.intiformation.projet.modele.Client;
 import com.intiformation.projet.modele.Produit;
+import com.intiformation.projet.service.ClientServicesImpl;
+import com.intiformation.projet.service.ICategorieService;
+import com.intiformation.projet.service.IClientService;
 import com.intiformation.projet.service.IProduitService;
 
 @Controller
@@ -17,6 +22,8 @@ public class AccueuilController {
 	
 
 	/* ---------- ASSOCIATION AVEC LA COUCHE SERVICE ------------ */
+	
+	// 1. De produit
 	@Autowired
 	IProduitService produitService;
 
@@ -25,11 +32,30 @@ public class AccueuilController {
 		this.produitService = produitService;
 	}
 	
+	// 2. de Catégorie
+	@Autowired
+	ICategorieService categorieService;
+	
+	public void setCategorieService(ICategorieService categorieService) {
+		this.categorieService = categorieService;
+	}
+	
+	
+	// 3. de Client
+	@Autowired
+	IClientService clientService;
+	
+
+	public void setClientService(IClientService clientService) {
+		this.clientService = clientService;
+	}
+
+
 
 	/* --------------- DECLARATION DES METHODES ---------------- */
 
 	/**
-	 * Permet d'afficher la liste de tous les produits <br/>
+	 * Permet d'initialiser tous les objets dans le Model <br/>
 	 * Revoie sur "accueil"
 	 * @param modele
 	 * @return
@@ -40,10 +66,22 @@ public class AccueuilController {
 		
 		// Definition des données à renvoyer dans la vue
 		
-		List<Produit> listOut = produitService.getAllProduitService();
+		List<Produit> listProduits = produitService.getAllProduitService();
+		List<String> listNomCategorie = categorieService.getNomCategorie();
+		Categorie categorie = new Categorie();
+		Produit produit = new Produit();
+		List<Categorie> listCategorie = categorieService.getAllCategories();
+		List<Client> listClient = clientService.findAllClientsService();
+		Client client = new Client();
 		
 		// Ajout de la liste au Model
-		modele.addAttribute("allProduit", listOut);
+		modele.addAttribute("allProduit", listProduits);
+		modele.addAttribute("allCategorie", listCategorie);
+		modele.addAttribute("allClients", listClient);
+		modele.addAttribute("nomsCategories", listNomCategorie);
+		modele.addAttribute("produit", produit);
+		modele.addAttribute("categorie", categorie);
+		modele.addAttribute("client", client);
 		
 		// Defintion de la clé permettant l'accés à la page
 		String cleOutcome="accueil";

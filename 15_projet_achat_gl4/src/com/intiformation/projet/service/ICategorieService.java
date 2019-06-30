@@ -17,4 +17,6 @@ public interface ICategorieService {
 	public List<String> getNomCategorie();
 
 	public List<Categorie> getAllCategories();
+	
+	public Categorie getCategorieByName(String nomCategorie);
 }

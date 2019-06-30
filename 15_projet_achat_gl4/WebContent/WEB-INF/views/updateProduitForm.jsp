@@ -30,6 +30,36 @@
 <link href="${monstyle2}" rel="stylesheet" />
 <link href="${bootstrapCss}" rel="stylesheet" />
 
+<style>
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  
+}
+</style>
 
 </head>
 <body>
@@ -45,7 +75,9 @@
 
 	<h3>Modifier un produit</h3>
 
-<div class="container">
+<div class="container" style="border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;">
 
 		<form:form modelAttribute="produitUpdate"
 			action="${pageContext.request.contextPath}/produit/update"
@@ -53,23 +85,22 @@
 
 			<form:hidden path="idProduit" />
 			
-				<form:label path="designation">designation:</form:label>
+				<form:label path="designation" type="text" placeholder="Designation">Designation :</form:label>
 				<form:input path="designation" />		
 		
-				<form:label path="description">description :</form:label>
+				<form:label path="description" type="text" placeholder="Description">Description :</form:label>
 				<form:input path="description" />
 		
-				<form:label path="prix">prix :</form:label>
+				<form:label path="prix" type="text" placeholder="Prix">prix :</form:label>
 				<form:input path="prix" />
 				
-				<form:label path="quantite">quantite :</form:label>
-				<form:input path="quantite" />
-				
-				<form:label path="photo">photo :</form:label>
+				<form:label path="categorie.nomCategorie">Catégorie :</form:label>
+				<form:select path="categorie.nomCategorie">					
+					<form:options items="${nomsCategories}" />
+				</form:select>
+								
+				<form:label path="photo" type="text" placeholder="Description">photo :</form:label>
 				<form:input path="photo" />
-		
-				<form:label path="selectionne">selectionne :</form:label>
-				<form:input path="selectionne" />
 		
 				<input type="submit" value="Modifier" />
 		

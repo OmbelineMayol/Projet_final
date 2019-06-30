@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+
 
 @Entity(name = "produit")
 @Table(name = "produits")
@@ -33,13 +36,13 @@ public class Produit {
 	@Column(name = "prix")
 	private double prix;
 
-	@Column(name = "quantite")
+	@Transient
 	private String quantite;
 
 	@Column(name = "photo")
 	private String photo;
 
-	@Column(name = "selectionne")
+	@Transient
 	private int selectionne;
 
 	/* ---------------------- ASSOCIATION ----------------------- */

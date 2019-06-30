@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,11 +48,12 @@
 	</div>
 
 	<!-- Barre de menu -->
-	<div class="container-fluid" style="display: flex; margin-top: 20px;">
+	<div class="container-fluid"
+		style="margin-top: 20px; margin-bottom: 30px;">
 
-		<div>
-			<a href='<c:url value="/accueilAdm"/>'>Se connecter en
-				tant qu'administrateur</a>
+		<div style="text-align: left;">
+			<a href='<c:url value="/accueilAdm"/>'>Se connecter en tant
+				qu'administrateur</a>
 		</div>
 
 	</div>
@@ -58,27 +61,45 @@
 
 
 	<!-- Bouton permettant d'afficher les produit en focntion de la catégorie -->
-<!-- 	<div> -->
-<!-- 		<form action="/action_page.php"> -->
-<!-- 			<input list="browsers" name="browser" > -->
-<!-- 			<datalist id="browsers"> -->
-<!-- 			<option value="Internet Explorer"> -->
-				
-<!-- 			<option value="Firefox"> -->
-    
-<!-- 			<option value="Chrome"> -->
-    
-<!-- 			<option value="Opera"> -->
-    
-<!-- 			<option value="Safari"> -->
-<!--   </datalist> -->
-<!--   <input type="submit"> -->
-<!-- </form> -->
-<!-- </div> -->
+
+	<div style="margin-bottom: 20px; display: flex; flex-wrap: nowrap;"
+		class="container">
+		<div>
+			<form:form
+				action="${pageContext.request.contextPath}/produit/byCategorie"
+				method="post" modelAttribute="categorie">
+
+				<!-- Liste déroulante -->
+				<form:label path="nomCategorie">Rechercher par catégorie :</form:label>
+
+				<form:select path="nomCategorie">
+					<%-- 					<form:option value="srth" /> --%>
+					<form:options items="${nomsCategories}" />
+				</form:select>
+
+
+				<!-- Bouton de sélection -->
+				<input type="submit" value="Recherher" />
+
+			</form:form>
+
+		</div>
+
+		<!-- Bouton permettant la recherche de tous  -->
+
+		<div>
+			<form action="<c:url value="/welcome"/>" style="margin-right: 5px;">
+
+				<input type="submit" value="Tous les produits" />
+			</form>
+		</div>
+	</div>
 
 	<!-- Table qui affiche l'ensemble des produits présents dans la table de données-->
 
-				<div class="container">
+	<div class="container">
+		<h2 style="margin-bottom: 20px; text-align: center;">Liste des
+			Produits</h2>
 		<table class="table table-striped">
 
 			<tr>
@@ -86,18 +107,19 @@
 				<th>Photo</th>
 				<th>Catégorie</th>
 				<th>Designation</th>
+				<th>Description</th>
 				<th>Prix</th>
+
 
 			</tr>
 
 
 			<c:forEach items="${allProduit}" var="pdt">
 				<tr>
-					<td>
-					<img src="${pdt.photo}" style="width:104px;height:142px;">
-					</td>
-					<td>${pdt.categorie.nomCategorie}</td>
+					<td><img src="${pdt.photo}" style="width: 150px; height: auto;" /></td>
+					<td > ${pdt.categorie.nomCategorie}</td>
 					<td>${pdt.designation}</td>
+					<td>${pdt.description}</td>
 					<td>${pdt.prix}</td>
 
 				</tr>

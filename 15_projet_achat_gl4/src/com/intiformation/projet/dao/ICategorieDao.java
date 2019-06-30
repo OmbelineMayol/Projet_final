@@ -18,6 +18,8 @@ public interface ICategorieDao {
 	
 	public List<Categorie> getAllCategories();
 	
+	public Categorie getCategorieByName(String nomCategorie);
+	
 	
 	
 }

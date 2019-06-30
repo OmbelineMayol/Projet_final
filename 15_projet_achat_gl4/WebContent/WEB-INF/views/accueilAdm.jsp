@@ -45,29 +45,19 @@
 	float: left;
 }
 
-.btn-group
- 
-.button
-:not
- 
-(
-:last-child
- 
-)
-{
-border-right
-:
- 
-none
-; /* Prevent double borders */
+.btn-group .button :not (:last-child){
 
+border-right :none; /* Prevent double borders */
 
 }
 .btn-group .button:hover {
 	background-color: #3E688E;
 }
+
 </style>
 </head>
+
+
 <body>
 	<!-- Entête -->
 	<div class="container-fluid"
@@ -80,25 +70,37 @@ none
 
 	<div class="container" style="display: flex; margin-bottom: 40px;">
 
-		<div class="btn-group">
+		<div class="btn-group" style="display: inline-block;">
 			<!-- Bouton permettant d'afficher les produit en focntion de la catégorie -->
 			<form action="<c:url value="/client/getAllClient"/>"
 				style="margin-right: 5px;">
 				<button type="submit" class="button">Gestion des clients</button>
 			</form>
+		</div>
+		<div>
 			<form action="<c:url value="/catergorie/getAllCategorie"/>">
 				<button type="submit" class="button">Gestion des catégories</button>
 			</form>
+		</div>
+		<div>
 			<form action="<c:url value="/logout"/>">
 				<button type="submit" class="button">Deconnection</button>
 			</form>
 
 		</div>
 
-
 	</div>
+	<!-- +++++++++++++++++++++++++  Gestion des produits ++++++++++++++++++++++++++ -->
 
 	<div class="container">
+	
+		<!-- Bouton pour ajouter des produits -->
+		<div style="margin-bottom: 20px;">
+			<form action="<c:url value="/welcome"/>" style="margin-right: 5px;">
+
+				<input type="submit" value="" />
+			</form>
+		</div>
 		<h2 style="margin-bottom: 15px;">Liste des produits</h2>
 
 		<!-- Table qui affiche l'ensemble des produits présents dans la table de données-->
@@ -123,11 +125,9 @@ none
 
 
 					<!-- 					colonne pour modifier le client -->
-					<td><a
-						href="/produit/update-form?produitId=${pdt.idProduit}">Modifier</a>
+					<td><a href="${pageContext.request.contextPath}/produit/form/udpate?produitId=${pdt.idProduit}">Modifier</a>
 					</td>
-					<td><a
-						href="/produit/supprimer/${pdt.idProduit}">Supprimer</a>
+					<td><a href="/produit/supprimer/${pdt.idProduit}">Supprimer</a>
 					</td>
 				</tr>
 			</c:forEach>

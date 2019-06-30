@@ -70,13 +70,13 @@ public class ProduitDaoImpl implements IProduitDao {
 	 * Récupérer la liste des produits par leur Caterogie
 	 */
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Produit> getProduitByCategorie(Categorie categorie) {
 		// Recuperation de la session
 		Session session = sessionFactory.getCurrentSession();
 
 		// Creation de la requete HQL
-		String reqHQL = "SELECT p FROM produit p, categorie c WHERE c.idCategorie=p.categorie.idCategorie AND c.nomCategorie =?1";
+		String reqHQL = "SELECT p FROM produit p WHERE p.categorie.nomCategorie =?1";
 
 		// Creation de la requete
 		Query query = session.createQuery(reqHQL);
@@ -89,16 +89,16 @@ public class ProduitDaoImpl implements IProduitDao {
 
 		List<Produit> listeOut = query.list();
 
-		return null;
+		return listeOut;
 	}
 
 	/**
 	 * Récupérer tous les produits de la bd
 	 */
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Produit> getAllProduit() {
-List<Produit> listeOut = sessionFactory.getCurrentSession().createQuery("FROM produit p").list();
+		List<Produit> listeOut = sessionFactory.getCurrentSession().createQuery("FROM produit p").list();
 		return listeOut;
 	}
 
