@@ -96,9 +96,9 @@ border-right :none; /* Prevent double borders */
 	
 		<!-- Bouton pour ajouter des produits -->
 		<div style="margin-bottom: 20px;">
-			<form action="<c:url value="/welcome"/>" style="margin-right: 5px;">
+			<form action="<c:url value="/produit/form/ajouter"/>" style="margin-right: 5px;">
 
-				<input type="submit" value="" />
+				<input type="submit" value="Ajouter un nouveau produit" />
 			</form>
 		</div>
 		<h2 style="margin-bottom: 15px;">Liste des produits</h2>
@@ -127,7 +127,7 @@ border-right :none; /* Prevent double borders */
 					<!-- 					colonne pour modifier le client -->
 					<td><a href="${pageContext.request.contextPath}/produit/form/udpate?produitId=${pdt.idProduit}">Modifier</a>
 					</td>
-					<td><a href="/produit/supprimer/${pdt.idProduit}">Supprimer</a>
+					<td><a href="${pageContext.request.contextPath}/produit/supprimer/${pdt.idProduit}">Supprimer</a>
 					</td>
 				</tr>
 			</c:forEach>

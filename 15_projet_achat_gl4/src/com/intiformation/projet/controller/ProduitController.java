@@ -22,6 +22,18 @@ public class ProduitController {
 
 	/* -------------- DECLARATION DES ATTRIBUTS ----------------- */
 
+	private List<String> nomDesCategories;
+
+	// Getter et setter
+	public List<String> getNomDesCategories() {
+		this.nomDesCategories = categorieService.getNomCategorie();
+		return nomDesCategories;
+	}
+
+	public void setNomDesCategories(List<String> nomDesCategories) {
+		this.nomDesCategories = nomDesCategories;
+	}
+
 	/* ---------- ASSOCIATION AVEC LA COUCHE SERVICE ------------ */
 	@Autowired
 	IProduitService produitService;
@@ -56,7 +68,7 @@ public class ProduitController {
 		List<String> listNomCategorie = categorieService.getNomCategorie();
 		// Insersion dans le modele
 		modele.addAttribute("produitUpdate", produit);
-		modele.addAttribute("nomsCategories",listNomCategorie);
+		modele.addAttribute("nomsCategories", listNomCategorie);
 		// definition de la vue
 		String vue = "updateProduitForm";
 
@@ -113,9 +125,9 @@ public class ProduitController {
 	 */
 	@RequestMapping(value = "/produit/byCategorie", method = RequestMethod.POST)
 	public String rechercherPdtParCat(@ModelAttribute("categorie") Categorie categorie, ModelMap modele) {
-//		Categorie cat = (Categorie) modele.get("categorie");
-//		String nom = cat.getNomCategorie();
-//		String test = "srth";
+		// Categorie cat = (Categorie) modele.get("categorie");
+		// String nom = cat.getNomCategorie();
+		// String test = "srth";
 		if (categorie.getNomCategorie() == "srth") {
 			List<Produit> listOut = produitService.getAllProduitService();
 			modele.addAttribute("allProduit", listOut);
@@ -134,6 +146,56 @@ public class ProduitController {
 		modele.addAttribute("nomsCategories", listNomCategorie);
 
 		return "accueil";
+	}
+
+	/**
+	 * Permet d'initialiser un produit afin de l'ajouter
+	 * 
+	 * @param modele
+	 * @return
+	 */
+	@RequestMapping(value = "/produit/form/ajouter", method = RequestMethod.GET)
+	public ModelAndView ajouterProduitForm() {
+
+		// initialisation du produit
+		Produit produit = new Produit();
+
+		// Creation du modele
+		ModelMap modele = new ModelMap();
+
+		// Ajout du produit au modele
+		modele.addAttribute("produitAj", produit);
+
+		// ajout de la liste des noms de categorie
+
+		modele.addAttribute("nomsCategories", this.getNomDesCategories());
+
+		// definition de la vue
+		String vue = "ajouterProduitForm";
+
+		// Construction du modele and vue
+		ModelAndView mav = new ModelAndView(vue, modele);
+
+		// Renvoi du modele and view
+		return mav;
+	}
+
+	/**
+	 * Methode permettant l'ajout d'un produit
+	 * @param produit
+	 * @return
+	 */
+	@RequestMapping(value = "/produit/ajouter", method = RequestMethod.POST)
+	public String ajouterProduit(@ModelAttribute("produitAj") Produit produit) {
+
+		// Recuperation de la categorie
+		String nomCatg = produit.getCategorie().getNomCategorie();
+		Categorie cat = categorieService.getCategorieByName(nomCatg);
+		produit.setCategorie(cat);
+		
+		produitService.addProduitService(produit);
+
+		return "redirect:/accueilAdm";
 	}
 
 }
