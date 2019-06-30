@@ -43,7 +43,7 @@ public class Produit {
 	private String photo;
 
 	@Transient
-	private int selectionne;
+	private boolean selectionne;
 
 	/* ---------------------- ASSOCIATION ----------------------- */
 	@OneToMany(mappedBy = "produit")
@@ -60,7 +60,7 @@ public class Produit {
 	}
 
 	public Produit(String designation, String description, double prix, String quantite, String photo,
-			int selectionne) {
+			boolean selectionne) {
 		super();
 		this.designation = designation;
 		this.description = description;
@@ -136,12 +136,14 @@ public class Produit {
 		this.categorie = categorie;
 	}
 
-	public int isSelectionne() {
+	public boolean isSelectionne() {
 		return selectionne;
 	}
 
-	public void setSelectionne(int selectionne) {
+	public void setSelectionne(boolean selectionne) {
 		this.selectionne = selectionne;
 	}
+
+	
 
 }

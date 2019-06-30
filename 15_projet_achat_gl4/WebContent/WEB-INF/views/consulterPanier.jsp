@@ -47,97 +47,47 @@
 		</h1>
 	</div>
 
-	<!-- Barre de menu -->
-	<div class="container-fluid"
-		style="margin-top: 20px; margin-bottom: 30px;">
+	
 
-		<div style="text-align: left;">
-			<a href='<c:url value="/accueilAdm"/>'>Se connecter en tant
-				qu'administrateur</a>
-		</div>
-		<div style="text-align: left;">
-			<a href='<c:url value="/consulterPanier"/>'>Consulter le panier</a>
-		</div>
-
-	</div>
+	
 
 
-
-	<!-- Bouton permettant d'afficher les produit en focntion de la catégorie -->
-
-	<div style="margin-bottom: 20px; display: flex; flex-wrap: nowrap;"
-		class="container">
-		<div>
-			<form:form
-				action="${pageContext.request.contextPath}/produit/byCategorie"
-				method="post" modelAttribute="categorie">
-
-				<!-- Liste déroulante -->
-				<form:label path="nomCategorie">Rechercher par catégorie :</form:label>
-
-				<form:select path="nomCategorie">
-					<%-- 					<form:option value="srth" /> --%>
-					<form:options items="${nomsCategories}" />
-				</form:select>
-
-
-				<!-- Bouton de sélection -->
-				<input type="submit" value="Recherher" />
-
-			</form:form>
-
-		</div>
-
-		<!-- Bouton permettant la recherche de tous  -->
-
-		<div>
-			<form action="<c:url value="/welcome"/>" style="margin-right: 5px;">
-
-				<input type="submit" value="Tous les produits" />
-			</form>
-		</div>
-	</div>
-
+	
 	<!-- Table qui affiche l'ensemble des produits présents dans la table de données-->
 
 	<div class="container">
 		<h2 style="margin-bottom: 20px; text-align: center;">Liste des
 			Produits</h2>
-		<form action="produit/ajout/panier">
+		
 			<table class="table table-striped">
 
 				<tr>
 
 					<th>Photo</th>
-					<th>Catégorie</th>
+				
 					<th>Designation</th>
 					<th>Description</th>
 					<th>Prix</th>
-					<th>Quantité</th>
-					<th>Selection</th>
+					
 
 				</tr>
 
 
-				<c:forEach items="${allProduit}" var="pdt">
+				<c:forEach items="${panier}" var="pdt">
 					<tr>
 						<td><img src="${pdt.photo}"
 							style="width: 150px; height: auto;" /></td>
-						<td>${pdt.categorie.nomCategorie}</td>
+						
 						<td>${pdt.designation}</td>
 						<td>${pdt.description}</td>
 						<td>${pdt.prix}</td>
-						<!-- 					colonne pour modifier le client -->
-						<td><input type="text" value="${pdt.quantite }" /></td>
-						<td><input type="checkbox" value="${pdt.selectionne}" /></td>
-
+						
 					</tr>
 
 				</c:forEach>
 
 			</table>
-			<input type="submit" value="Ajouter au panier"/>
-		</form>
+			
 	</div>
 
 	<!-- 		<script -->

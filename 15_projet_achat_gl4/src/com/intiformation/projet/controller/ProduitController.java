@@ -1,8 +1,10 @@
 package com.intiformation.projet.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.intiformation.projet.modele.Categorie;
+import com.intiformation.projet.modele.Panier;
 import com.intiformation.projet.modele.Produit;
 import com.intiformation.projet.service.ICategorieService;
 import com.intiformation.projet.service.IProduitService;
@@ -23,6 +27,7 @@ public class ProduitController {
 	/* -------------- DECLARATION DES ATTRIBUTS ----------------- */
 
 	private List<String> nomDesCategories;
+	private Panier panier;
 
 	// Getter et setter
 	public List<String> getNomDesCategories() {
@@ -182,6 +187,7 @@ public class ProduitController {
 
 	/**
 	 * Methode permettant l'ajout d'un produit
+	 * 
 	 * @param produit
 	 * @return
 	 */
@@ -192,10 +198,34 @@ public class ProduitController {
 		String nomCatg = produit.getCategorie().getNomCategorie();
 		Categorie cat = categorieService.getCategorieByName(nomCatg);
 		produit.setCategorie(cat);
-		
+
 		produitService.addProduitService(produit);
 
 		return "redirect:/accueilAdm";
+	}
+
+	@RequestMapping(value = "produit/ajout/panier")
+	public ModelAndView ajouterAuPanier(@ModelAttribute("allProduit") List<Produit> listeProduit, ModelMap modele,
+			WebRequest request) {
+
+		List<Produit> listOut = new ArrayList<>();
+
+		for (Produit produit : listeProduit) {
+
+			if (produit.isSelectionne()) {
+				listOut.add(produit);
+			}
+
+		}
+		
+		this.panier.setListProduits(listOut);
+		request.setAttribute("panier", this.panier, WebRequest.SCOPE_SESSION);
+		
+		// Recuperation de la liste de tous les produits
+		modele.addAttribute("allProduit", produitService.getAllProduitService());
+		modele.addAttribute("nomsCategories", this.getNomDesCategories());
+
+		return new ModelAndView("accueil", modele);
 	}
 
 }

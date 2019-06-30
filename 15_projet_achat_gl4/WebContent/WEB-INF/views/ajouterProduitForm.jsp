@@ -100,7 +100,7 @@ div {
 				</form:select>
 								
 				<form:label path="photo" type="text" placeholder="Lien de la photo">photo :</form:label>
-				<form:input path="photo" />
+				<form:input path="photo" placeholder="Lien de la photo" />
 		
 				<input type="submit" value="Ajouter" />
 		
